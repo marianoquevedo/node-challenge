@@ -16,6 +16,8 @@ Fork this repo with your solution. Ideally, we'd like to see your progression th
 
 Please let us know how long the challenge takes you. We're not looking for how speedy or lengthy you are. It's just really to give us a clearer idea of what you've produced in the time you decided to take. Feel free to go as big or as small as you want.
 
+## Changes start here
+
 ## Install
 
 Make sure that you have a modern version of `yarn` that supports workspaces (`>= 1.0`), then run:
@@ -24,11 +26,13 @@ Make sure that you have a modern version of `yarn` that supports workspaces (`>=
 yarn
 ```
 
-You will also need to [install Postgres](https://www.postgresqltutorial.com/install-postgresql-macos/), create a `challenge` database and load the sql file `dump.sql`:
+Make sure you have a modern version of docker that supports `docker compose` and then run:
 
 ```bash
-psql challenge < dump.sql
+docker compose up -d
 ```
+
+This will start a docker container with Postgres 10 and load the `dump.sql` file into the `challenge` DB.
 
 ## Start
 
