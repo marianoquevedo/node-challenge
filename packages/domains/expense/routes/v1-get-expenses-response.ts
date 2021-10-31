@@ -1,5 +1,6 @@
 import { Expense } from '../model';
-import { Pagination, PaginationResponse } from '../../../../middleware/pagination';
+import { GetExpensesRequest } from './v1-get-expenses-request';
+import { PaginationResponse } from '@nc/utils/pagination';
 
 interface ExpenseResponse {
   id: string
@@ -15,7 +16,7 @@ export interface GetExpensesResponse {
   pagination: PaginationResponse
 }
 
-export function build(expenses: Expense[], pagination: Pagination, total: number): GetExpensesResponse {
+export function build(expenses: Expense[], total: number, params: GetExpensesRequest): GetExpensesResponse {
   return {
     expenses: expenses.map((exp) => {
       return {
@@ -28,7 +29,8 @@ export function build(expenses: Expense[], pagination: Pagination, total: number
       };
     }),
     pagination: {
-      ...pagination,
+      offset: params.offset,
+      count: params.count,
       total,
     },
   };

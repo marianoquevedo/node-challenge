@@ -1,19 +1,18 @@
 import { ApiError } from '@nc/utils/errors';
 import { build } from './v1-get-expenses-response';
-import { createPaginationMiddleware } from '../../../../middleware/pagination';
 import { getExpensesByUserId } from '../model';
 import { getUserDetails } from '../../user/model';
-import { parse } from './v1-get-expenses-request';
 import { Router } from 'express';
 import { to } from '@nc/utils/async';
+import { validate } from './v1-get-expenses-request';
 
 export const router = Router();
 
-const usePagination = createPaginationMiddleware({ offset: 0, count: 20 });
-
-router.get('/', usePagination, async (req, res, next) => {
-  // TODO: validate inputs
-  const params = parse(req);
+router.get('/', async (req, res, next) => {
+  const [validationErr, params] = validate(req);
+  if (validationErr) {
+    return next(validationErr);
+  }
 
   // check user
   const [errUser] = await to(getUserDetails(params.userId));
@@ -26,6 +25,6 @@ router.get('/', usePagination, async (req, res, next) => {
     return next(new ApiError(err, err.status, `Error retrieving expenses: ${err}`, err.title, req));
   }
 
-  const response = build(queryResult.rows, params.pagination, queryResult.total);
+  const response = build(queryResult.rows, queryResult.total, params);
   return res.json(response);
 });
