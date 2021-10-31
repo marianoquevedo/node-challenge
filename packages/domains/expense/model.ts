@@ -1,5 +1,6 @@
+import { GetExpensesRequest } from './routes/v1-get-expenses-request';
 import { InternalError } from '@nc/utils/errors';
-import { Pagination } from '../../../middleware/pagination';
+import { PaginatedQueryResult } from '@nc/utils/db';
 import { selectExpensesByUserId } from './data/db-get-expenses';
 import { to } from '@nc/utils/async';
 
@@ -13,8 +14,8 @@ export interface Expense {
   status: string
 }
 
-export async function getExpensesByUserId(userId: string, pagination: Pagination): Promise<[number, Expense[]]> {
-  const [dbError, result] = await to(selectExpensesByUserId(userId, pagination));
+export async function getExpensesByUserId(params: GetExpensesRequest): Promise<PaginatedQueryResult<Expense>> {
+  const [dbError, result] = await to(selectExpensesByUserId(params));
 
   if (dbError) {
     throw InternalError(`Error fetching data from the DB: ${dbError.message}`);

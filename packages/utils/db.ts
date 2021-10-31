@@ -5,6 +5,11 @@ import { Knex, knex } from 'knex';
 let db;
 let knexInstance;
 
+export interface PaginatedQueryResult<T> {
+  total: number
+  rows: T[]
+}
+
 export function connect() {
   db = new Client(config.db);
   return db.connect();
