@@ -12,6 +12,14 @@ const queryParamsSchema = {
       type: 'string',
       format: 'uuid',
     },
+    merchant_name: {
+      type: 'string',
+      minLength: 1,
+    },
+    status: {
+      type: 'string',
+      enum: ['pending', 'processed'],
+    },
     sort: {
       type: 'string',
       minLength: 1,
