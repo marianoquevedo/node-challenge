@@ -1,9 +1,9 @@
 import { ApiError } from '@nc/utils/errors';
+import { format } from './v1-get-expenses-response';
 import { getExpensesByUserId } from '../model';
 import { getUserDetails } from '../../user/model';
 import { Router } from 'express';
 import { to } from '@nc/utils/async';
-import { Expense, ExpenseResponse } from '../types';
 
 export const router = Router();
 
@@ -26,18 +26,5 @@ router.get('/', async (req, res, next) => {
     return res.json({});
   }
 
-  return res.json(formatResponse(userExpenses));
+  return res.json(format(userExpenses));
 });
-
-function formatResponse(expenses: Expense[]): ExpenseResponse[] {
-  return expenses.map((exp) => {
-    return {
-      id: exp.id,
-      merchant_name: exp.merchant_name,
-      amount_in_cents: exp.amount_in_cents,
-      currency: exp.currency,
-      date_created: exp.date_created,
-      status: exp.status,
-    };
-  });
-}
