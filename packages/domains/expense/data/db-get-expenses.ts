@@ -1,6 +1,14 @@
-import { query } from '@nc/utils/db';
+import { Expense } from '../model';
+import { getKnex } from '@nc/utils/db';
+import { Pagination } from '../../../../middleware/pagination';
 
-export function selectExpensesByUserId(userId: string) {
-  return query('SELECT * FROM expenses WHERE user_id=$1', [userId])
-    .then((response) => response.rows);
+export async function selectExpensesByUserId(userId: string, pagination: Pagination): Promise<[number, Expense[]]> {
+  const baseQuery = getKnex()<Expense>('expenses').where('user_id', userId);
+
+  const totalCount = await baseQuery.clone().count();
+  const rows = await baseQuery.clone()
+    .offset(pagination.offset)
+    .limit(pagination.count).select();
+
+  return [Number(totalCount[0].count), rows];
 }
