@@ -2,6 +2,9 @@ require('dotenv').config();
 const path = require('path');
 
 module.exports = {
+  auth: {
+    jwtSecret: 'REPLACE-ME',
+  },
   db: {
     host: '0.0.0.0',
     port: 5432,
