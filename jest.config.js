@@ -1,7 +1,7 @@
 module.exports = {
   collectCoverageFrom: [
     '<rootDir>/packages/**/*.ts*',
-    '!<rootDir>/packages/domain/**/(route|schema|parameters|sqs)+(*.ts)',
+    '!<rootDir>/packages/domains/**/(route|schema|parameters|sqs)+(*.ts)',
     '!<rootDir>/packages/resource/**/(types|schema)+(*.ts)',
     '!<rootDir>/packages/resource/**/test/**/*.ts',
     '!<rootDir>/packages/router/**/(parameters)+(*.ts)',

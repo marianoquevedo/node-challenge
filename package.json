@@ -14,8 +14,9 @@
   },
   "scripts": {
     "watch": "nodemon $npm_package_main",
-    "start:dev": "NODE_DEBUG=DEBUG nodemon $npm_package_main",
+    "start:dev": "yarn start:containers && NODE_DEBUG=DEBUG nodemon $npm_package_main",
     "start": "node $npm_package_main",
+    "start:containers": "docker compose up -d",
     "lint": "eslint --ext .ts --ext .js .",
     "lint:fix": "eslint --ext .ts --ext .js . --fix",
     "test": "yarn test:unit && yarn test:mid-level",

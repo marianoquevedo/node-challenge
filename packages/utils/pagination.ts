@@ -1,6 +1,6 @@
 export interface Pagination {
   offset: number
-  count: number
+  limit: number
 }
 
 export interface PaginationResponse extends Pagination {

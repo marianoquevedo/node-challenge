@@ -23,7 +23,7 @@ export async function selectExpensesByUserId(params: GetExpensesRequest): Promis
   // select
   const rows = await baseQuery.clone()
     .offset(params.offset)
-    .limit(params.count)
+    .limit(params.limit)
     .select();
 
   return {

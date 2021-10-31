@@ -1,5 +1,8 @@
 {
     "signal": "SIGHUP",
-    "ignore": ["jest/*, test/*"],
+    "ignore": [
+        "jest/*",
+        "test/*"
+    ],
     "ext": "ts, js, json, yml"
 }

@@ -30,7 +30,7 @@ export function build(expenses: Expense[], total: number, params: GetExpensesReq
     }),
     pagination: {
       offset: params.offset,
-      count: params.count,
+      limit: params.limit,
       total,
     },
   };

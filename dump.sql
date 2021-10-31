@@ -74,6 +74,7 @@ COPY public.users (id, first_name, last_name, company_name, ssn) FROM stdin;
 da140a29-ae80-4f0e-a62d-6c2d2bc8a474	jeppe	rindom	pleo	1
 e17825a6-ad80-41bb-a76b-c5ee17b2f29d	petr	janda	pleo	2
 3d16547a-79f6-4f62-9034-d3bfb31fb37c	olov	eriksson	pleo	3
+51f023a3-1868-491e-8608-23227d59b72e	mariano	test	pleo	4
 \.
 
 

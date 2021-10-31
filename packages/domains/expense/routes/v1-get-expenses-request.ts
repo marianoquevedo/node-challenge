@@ -37,7 +37,7 @@ const queryParamsSchema = {
       minimum: 0,
       default: 0,
     },
-    count: {
+    limit: {
       type: 'number',
       minimum: 1,
       default: 20,
