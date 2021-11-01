@@ -1,18 +1,11 @@
-import { Client } from 'pg';
 import config from 'config';
 import { Knex, knex } from 'knex';
 
-let db;
 let knexInstance;
 
 export interface PaginatedQueryResult<T> {
   total: number
   rows: T[]
-}
-
-export function connect() {
-  db = new Client(config.db);
-  return db.connect();
 }
 
 export function getKnex(): Knex {
@@ -23,10 +16,4 @@ export function getKnex(): Knex {
     });
   }
   return knexInstance;
-}
-
-export async function query(queryString: string, parameters?: any) {
-  if (!db) await connect();
-
-  return db.query(queryString, parameters);
 }
