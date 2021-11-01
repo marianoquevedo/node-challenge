@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: Expenses API
+  description: Expenses API to retrieve users expenses
+  version: 0.0.1
+servers:
+  - url: http://localhost:9001
+    description: Local testing
+paths:
+  /expenses/v1:
+    get:
+      summary: Returns a list of expenses for a user.
+      parameters:
+        - name: user_id
+          in: query
+          required: true
+          description: UserId used to filter the expenses.
+          schema:
+            type : string
+            format: uuid
+            minimum: 1
+        - name: merchant_name
+          in: query
+          description: Filter expenses by merchant name, using fuzzy matching.
+          schema:
+            type : string
+            minLength: 1
+        - name: status
+          in: query
+          description: Filter expenses by status
+          schema:
+            type : string
+            example: pending
+            enum:
+              - processed
+              - pending
+        - name: sort
+          in: query
+          description: name of the field to sort by.
+          schema:
+            type : string
+            enum:
+              - merchant_name
+              - amount_in_cents
+              - date_created
+              - status
+        - name: sortDir
+          in: query
+          description: Sorting direction.
+          schema:
+            type : string
+            default: DESC
+            enum:
+              - ASC
+              - DESC
+        - name: offset
+          in: query
+          description: Starting offset for the pagination.
+          schema:
+            type : number
+            default: 0
+        - name: limit
+          in: query
+          description: Number of items to return per page.
+          schema:
+            type : number
+            default: 20
+
+      responses:
+        '200':
+          description: Response with the expenses array and pagination metadata.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  expenses:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                          description: Expense ID
+                        merchant_name:
+                          type: string
+                          description: The merchant where the expense was created.
+                        amount_in_cents:
+                          type: string
+                          description: Amount of the expense, in cents units.
+                        currency:
+                          type: string
+                          description: Currency of the amount.
+                          example: DKK
+                        date_created:
+                          type: string
+                          description: Expense date of creation in ISO 8601 format.
+                        status:
+                          type: string
+                          description: Expense status
+                          enum:
+                            - processed
+                            - pending
+                  pagination:
+                    type: object
+                    properties:
+                      offset:
+                        type: integer
+                        description: Starting offset for the pagination.
+                        default: 0
+                      limit:
+                        type: integer
+                        description: Number of items to return per page.
+                        default: 20
+                      total:
+                        type: integer
+                        description: The total rows on the dataset, after appyling filtering.
+        '400':
+          description: Bad request. Validation error.
+        '404':
+          description: User Id not found.
+        '500':
+          description: Internal server error.
