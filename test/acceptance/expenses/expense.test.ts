@@ -10,7 +10,7 @@ describe('GET /expenses/v1/', () => {
   test('should return 200 and filter by userId', (done) => {
     Api.get('/expenses/v1')
       .query({
-        userId,
+        user_id: userId,
       })
       .expect(200)
       .then((response) => {
@@ -24,7 +24,7 @@ describe('GET /expenses/v1/', () => {
   test('should return 200 and empty rows if user has no expenses', (done) => {
     Api.get('/expenses/v1')
       .query({
-        userId: userIdEmpty,
+        user_id: userIdEmpty,
       })
       .expect(200)
       .then((response) => {
@@ -37,7 +37,7 @@ describe('GET /expenses/v1/', () => {
   test('should return 404 if user is not found', (done) => {
     Api.get('/expenses/v1')
       .query({
-        userId: 'd0cf8bd6-25a0-403b-95f7-c884b2022de7',
+        user_id: 'd0cf8bd6-25a0-403b-95f7-c884b2022de7',
       })
       .expect(404, done);
   });
@@ -51,7 +51,7 @@ describe('GET /expenses/v1/', () => {
     test('should return 400 if invalid userId', (done) => {
       Api.get('/expenses/v1/')
         .query({
-          userId: 'no-valid-uuid',
+          user_id: 'no-valid-uuid',
         })
         .expect(400, done);
     });
@@ -59,7 +59,7 @@ describe('GET /expenses/v1/', () => {
     test('should return 400 if invalid offset', (done) => {
       Api.get('/expenses/v1/')
         .query({
-          userId,
+          user_id: userId,
           offset: -2,
         })
         .expect(400, done);
@@ -68,7 +68,7 @@ describe('GET /expenses/v1/', () => {
     test('should return 400 if invalid limit', (done) => {
       Api.get('/expenses/v1/')
         .query({
-          userId,
+          user_id: userId,
           offset: 10,
           limit: -2,
         })
@@ -78,7 +78,7 @@ describe('GET /expenses/v1/', () => {
     test('should return 400 if invalid status', (done) => {
       Api.get('/expenses/v1/')
         .query({
-          userId,
+          user_id: userId,
           status: 'ready',
         })
         .expect(400, done);
@@ -89,7 +89,7 @@ describe('GET /expenses/v1/', () => {
     test('should return 400 if field not in sorting whitelist', (done) => {
       Api.get('/expenses/v1/')
         .query({
-          userId,
+          user_id: userId,
           sort: 'currency',
         })
         .expect(400, done);
@@ -98,7 +98,7 @@ describe('GET /expenses/v1/', () => {
     test('should return 400 if sortDir not valid', (done) => {
       Api.get('/expenses/v1/')
         .query({
-          userId,
+          user_id: userId,
           sortDir: 'left',
         })
         .expect(400, done);
@@ -107,7 +107,7 @@ describe('GET /expenses/v1/', () => {
     test('should sort by amount_in_cents, default DESC', (done) => {
       Api.get('/expenses/v1')
         .query({
-          userId,
+          user_id: userId,
           sort: 'amount_in_cents',
         })
         .expect(200)
@@ -121,7 +121,7 @@ describe('GET /expenses/v1/', () => {
     test('should sort by amount_in_cents, passing ASC', (done) => {
       Api.get('/expenses/v1')
         .query({
-          userId,
+          user_id: userId,
           sort: 'amount_in_cents',
           sortDir: 'ASC',
         })
@@ -138,7 +138,7 @@ describe('GET /expenses/v1/', () => {
     test('should return 400 if merchant_name empty', (done) => {
       Api.get('/expenses/v1/')
         .query({
-          userId,
+          user_id: userId,
           merchant_name: '',
         })
         .expect(400, done);
@@ -147,7 +147,7 @@ describe('GET /expenses/v1/', () => {
     test('should return 400 if status empty', (done) => {
       Api.get('/expenses/v1/')
         .query({
-          userId,
+          user_id: userId,
           status: '',
         })
         .expect(400, done);
@@ -156,7 +156,7 @@ describe('GET /expenses/v1/', () => {
     test('should do a fuzzy filter by merchant_name', (done) => {
       Api.get('/expenses/v1')
         .query({
-          userId,
+          user_id: userId,
           merchant_name: 'caf',
         })
         .expect(200)
@@ -171,7 +171,7 @@ describe('GET /expenses/v1/', () => {
     test('should filter by status', (done) => {
       Api.get('/expenses/v1')
         .query({
-          userId,
+          user_id: userId,
           status: 'processed',
         })
         .expect(200)
@@ -188,7 +188,7 @@ describe('GET /expenses/v1/', () => {
     test('should set default values for pagination', (done) => {
       Api.get('/expenses/v1')
         .query({
-          userId,
+          user_id: userId,
         })
         .expect(200)
         .then((response) => {
@@ -206,7 +206,7 @@ describe('GET /expenses/v1/', () => {
     test('should return paginated results - offset', (done) => {
       Api.get('/expenses/v1')
         .query({
-          userId,
+          user_id: userId,
           offset: 1,
         })
         .expect(200)
@@ -225,7 +225,7 @@ describe('GET /expenses/v1/', () => {
     test('should return paginated results - limit', (done) => {
       Api.get('/expenses/v1')
         .query({
-          userId,
+          user_id: userId,
           limit: 2,
         })
         .expect(200)

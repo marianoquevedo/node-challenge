@@ -15,7 +15,7 @@ router.get('/', async (req, res, next) => {
   }
 
   // check user
-  const [errUser] = await to(getUserDetails(params.userId));
+  const [errUser] = await to(getUserDetails(params.user_id));
   if (errUser) {
     return next(errUser);
   }

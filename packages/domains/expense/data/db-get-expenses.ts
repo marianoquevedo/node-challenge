@@ -4,7 +4,7 @@ import { getKnex, PaginatedQueryResult } from '@nc/utils/db';
 
 export async function selectExpensesByUserId(params: GetExpensesRequest): Promise<PaginatedQueryResult<Expense>> {
   let baseQuery = getKnex()<Expense>('expenses')
-    .where('user_id', params.userId);
+    .where('user_id', params.user_id);
 
   // filters
   if (params.status) {

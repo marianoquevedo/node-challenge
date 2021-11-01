@@ -8,7 +8,7 @@ const sortFields = ['merchant_name', 'amount_in_cents', 'date_created', 'status'
 const queryParamsSchema = {
   type: 'object',
   properties: {
-    userId: {
+    user_id: {
       type: 'string',
       format: 'uuid',
     },
@@ -43,7 +43,7 @@ const queryParamsSchema = {
       default: 20,
     },
   },
-  required: ['userId'],
+  required: ['user_id'],
   additionalProperties: false,
 } as const;
 
